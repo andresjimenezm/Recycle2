@@ -1,0 +1,416 @@
+<!DOCTYPE html> 
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>jQuery Mobile: Theme Download</title>
+		<link rel="stylesheet" href="themes/posconsumo.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.0.min.css" />
+        
+        
+        <link rel='stylesheet' href='slides/css/vendor/normalize.css'>
+	    <link rel='stylesheet' href='slides/css/vendor/fontello.css'>
+	    <link rel='stylesheet' href='slides/css/style.css'>
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        
+		<script src="themes/jquery-1.10.2.min.js"></script>
+		<script src="themes/jquery.mobile-1.4.0.min.js"></script>
+        
+         <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,100,200,700,500' rel='stylesheet' type='text/css'>
+         
+         <style>
+    
+	 #map-container-api {
+			
+  left: 0;
+  right: 0;
+  min-height:100%;
+  position: absolute;
+  bottom: 1px;
+		
+      }
+    </style>
+         
+	</head>
+    
+<body onload="onLoad();"> 
+
+<div data-role="page" id="page">
+	<div data-role="header" data-position="fixed">
+    <a href="#nav-panel" class="ui-nodisc-icon ui-btn ui-icon-bars ui-btn-icon-notext" style=" background:#3c9900; border:none;">Menu</a>
+		<h4>POSCONSUMO </h4>
+	</div>
+    
+	<div data-role="content">	
+
+<div class="hero" id="map-container-api"></div>			
+	</div>
+	
+    
+    <div data-role="panel" data-display="reval" data-theme="b" id="nav-panel">
+    
+    <div id="sidemenu">
+	        		<div id="author-profile">
+	        			<div class="author-profile-photo">
+	        				<img src="assets/authorProfile.jpg" alt="">
+	        			</div>
+	        			<div class="author-profile-content">
+	        				<p class="title">Posconsumo</p>
+	        				<p class="subtitle" style="color:#9fc103">Gestión de Residuos</p>
+	        			</div>
+	        		</div>
+	 </div></br>
+     
+        <ul data-role="listview">        
+          <li><a href="index.html" data-ajax="false"><n class="fuente1">Inicio</n></a></li>
+          <li><a href="aprende.html" data-ajax="false"><n class="fuente1">Aprende</n></a></li>
+          <li><a href="informate.html" data-ajax="false"><n class="fuente1">Infórmate</n></a></li>
+          <li><a href="ubicate.html" data-ajax="false"><n class="fuente1">Ubícate</n></a></li>
+          <li><a href="contacto.html" data-ajax="false"><n class="fuente1">Contacto</n></a></li>
+          <li><a href="sobre.html" data-ajax="false"><n class="fuente1">Acerca de</n></a></li>        
+          <li><a href="cerrar.html" data-transition="pop" data-ajax="false" onclick="exitFromApp"><n class="fuente1">Salir</n></a></li>      
+        </ul></br>
+        
+        
+        <p class"social" align="center">
+        
+    <script>
+    function openLinkInBrowser(url){
+    if (navigator!=undefined && navigator.app!=undefined && navigator.app.loadUrl !=undefined) {
+        navigator.app.loadUrl( url,  { openExternal: true });  
+    } else {
+        window.open(url, "_system");
+    }
+    
+}
+    </script>
+           <a class"afuera" onclick="openLinkInBrowser('https://twitter.com/intent/tweet?text=@MinAmbienteCo')"><img src="themes/images/icontwet.png" width="50" height="50" /></a>
+           <a onclick="openLinkInBrowser('https://www.facebook.com/sharer/sharer.php?u=http://www.minambiente.gov.co/')"><img src="themes/images/iconface.png" width="50" height="50" /></a>
+           <a onclick="openLinkInBrowser('http://www.youtube.com/user/minambientegov')"><img src="themes/images/iconyout.png" width="50" height="50" /></a>
+        </p>
+    </div><!-- /panel -->
+</div>
+
+
+ <script>!window.jQuery && document.write('<script src="slides/js/vendor/jquery.js"><\/script>')</script>
+        
+        <script src='slides/js/plugins/hammer.js'></script>
+		<script src='slides/js/plugins/flexslider.js'></script>
+		<script src='slides/js/script.js'></script>
+
+<!--jQuery & Google Maps -->
+	
+	    <script src="../../../../../ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	    <script>!window.jQuery && document.write('<script src="js/vendor/jquery.js"><\/script>')</script>
+
+	    <!-- Google Maps script -->
+
+	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpYpkxGMeJcDfwD5QJMhBZT0No7Jleg-E&amp;sensor=false"></script>
+
+	<!-- =jQuery & Google Maps -->
+   
+
+  <script>
+var map;
+var panorama;
+var astorPlace = new google.maps.LatLng(40.729884, -73.990988);
+
+
+function initialize() {
+  var mapOptions = {
+    zoom: 12,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+
+  };
+  
+	<!--Se genera en el id map-canvas-->  
+	 var map = new google.maps.Map(document.getElementById('map-container-api'), mapOptions);
+
+// We get the map's default panorama and set up some defaults.
+  // Note that we don't yet set it visible.
+  panorama = map.getStreetView();
+  panorama.setPosition(astorPlace);
+  panorama.setPov(/** @type {google.maps.StreetViewPov} */({
+    heading: 265,
+    pitch: 0
+  }));
+
+
+function toggleStreetView() {
+  var toggle = panorama.getVisible();
+  if (toggle == false) {
+    panorama.setVisible(true);
+  } else {
+    panorama.setVisible(false);
+  }
+}
+  <!--Se realiza geolocalizacion--> 
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude,
+                                       position.coords.longitude);
+
+      var infowindow = new google.maps.InfoWindow({
+        map: map,
+        position: pos,
+        
+	
+		
+      });
+	  
+	  var image = 'images/tu.png';
+  var myLatLng = pos;
+  var Marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      icon: image,
+	  title: '¡Estas aquí!'
+	  
+  });
+  
+  
+
+	   <!--Se ponenen las Marcas de  los puntos-->
+	  var marcadores = [			
+					
+
+
+				
+				
+{position:{lat : 5.077179,lng : -75.514054},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>San Jacintosss - Bolivar</b></br>"+"Dirección: Calle 14 # 40 - 01</br>"+"Teléfono: (57)3205653411</br>"+"<input type='button' value='Vista 360°' href='street.html');'></input>"+"</div>"},
+					
+{position:{lat : 6.346457, lng : -75.549706},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BELLO- ANTIOQUIA </b></br>"+"Dirección: Diagonal 65  No. 42A-11</br>"+"Teléfono: (4) 4830113 Coordinación (4) 4830380 310-8418862</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.666718, lng : -75.333509},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CÁCERES- ANTIOQUIA </b></br>"+"Dirección: Carrera 51 No. 46-02</br>"+"Teléfono: (4) 8362016-8362049</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.672316, lng : -76.684350},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CHIGORODÓ- ANTIOQUIA </b></br>"+"Dirección: Carrera 104A No. 100 - 30 Calle Santander contigua al Palacio Municipal</br>"+"Teléfono: (4)8255356 - 8253630 Extensión 110 311-7623470   </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.590957, lng : -74.810993},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>El BAGRE- ANTIOQUIA </b></br>"+"Dirección: Calle 49A No. 48-60</br>"+"Teléfono: (4) 8370683 Extensión 114 314-8935185</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.153366, lng : -75.576785},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>ENVIGADO- ANTIOQUIA </b></br>"+"Dirección: Calle 40 Sur N° 24F-106</br>"+"Teléfono: 3330257 Extensión 4735 311-3905727</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.184822, lng : -75.597524},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>ITAGÜÍ - ANTIOQUIA </b></br>"+"Dirección: Carrera 52A No. 74-67</br>"+"Teléfono: 2813266 - 3167668 313-6844883    </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.153366, lng : -75.576785},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>ENVIGADO- ANTIOQUIA </b></br>"+"Dirección: Calle 40 Sur N° 24F-106</br>"+"Teléfono: 3330257 Extensión 4735 311-3905727</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.184822, lng : -75.597524},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>ITAGÜÍ - ANTIOQUIA </b></br>"+"Dirección: Carrera 52A No. 74-67</br>"+"Teléfono: 2813266 - 3167668 313-6844883    </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.283914, lng : -75.586377},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>MEDELLÍN- ANTIOQUIA </b></br>"+"Dirección: Diagonal 85 # 79-173</br>"+"Teléfono: (4) 4373590  //  91 // 93  314-7647885 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.294789, lng : -75.553614},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>MEDELLÍN- ANTIOQUIA </b></br>"+"Dirección: Calle 104B No. 48-60</br>"+"Teléfono: (4) Coordinación 5215683 - 5216449</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+{position:{lat : 7.033388, lng : -74.533352},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>REMEDIOS- ANTIOQUIA </b></br>"+"Dirección: Calle El Retiro Carrera 5  No. 1-48</br>"+"Teléfono: (4) 8303061 -8304253</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+{position:{lat : 7.079269, lng : -74.699285},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SEGOVIA- ANTIOQUIA </b></br>"+"Dirección: Carrera 48 No. 48-88 Esquina</br>"+"Teléfono: (4)8314081- 8315384</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.579867, lng : -75.400122},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>TARAZA- ANTIOQUIA </b></br>"+"Dirección: Calle 30 No. 30-38</br>"+"Teléfono: 8365628 - 8365970 Extensión 201 321-7809208 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.773439, lng : -74.798510},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>VEGACHÍ- ANTIOQUIA </b></br>"+"Dirección: Calle 53 No. 50-04</br>"+"Teléfono: 8305625 - 8305347 321-7811756</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.683447, lng : -74.849982},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>YALÍ- ANTIOQUIA </b></br>"+"Dirección: Carrera 20 No. 20-54</br>"+"Teléfono: 8675050 - 8675656 312-2872281</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 10.964554, lng : -74.832944},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BARRANQUILLA- ATLÁNTICO</b></br>"+"Dirección: Calle 100 No.12F-57</br>"+"Teléfono: (5) 3803431</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 10.961442, lng : -74.768630},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BARRANQUILLA- ATLÁNTICO</b></br>"+"Dirección: Carrera 23 No. 5C-10</br>"+"Teléfono: 312-6832838</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.610379, lng : -74.085300},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BOGOTÁ- BOGOTÁ</b></br>"+"Dirección: Carrera 21 No. 14 - 75 </br>"+"Teléfono: (1) 2471001</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat :  4.598522, lng : -74.076350},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BOGOTÁ- BOGOTÁ</b></br>"+"Dirección: Carrera 8 No. 10-65</br>"+"Teléfono: 3813000</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.579069, lng : -74.166541},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BOGOTÁ- BOGOTÁ</b></br>"+"Dirección: Transversal 73 No. 70 A - 04 Sur</br>"+"Teléfono: 3813000311-5535192</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.614924, lng : -74.181919},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BOGOTÁ- BOGOTÁ</b></br>"+"Dirección: Carrera 81D No. 59A-59 Sur</br>"+"Teléfono: 7191115 - 3813000 - 7794727 300-5608924  </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.736986, lng : -74.086099},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BOGOTÁ- BOGOTÁ</b></br>"+"Dirección: Carrera 93 No. 143-50 - Piso 4</br>"+"Teléfono: 6824018 - 6925096 - 3813000 300-2185586 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 10.428715, lng : -75.518847},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CARTAGENA - BOLÍVAR</b></br>"+"Dirección: CL 57  No. 31C - 30</br>"+"Teléfono: 6613720 300-8083535</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 5.535078, lng : -73.366849},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>TUNJA- BOYACÁ</b></br>"+"Dirección: Transversal 15 N° 20-65</br>"+"Teléfono: 7430997 - 7430950 313-3843688    </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 5.416510, lng : -75.699384},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>RIOSUCIO - CALDAS</b></br>"+"Dirección: Calle 6 No. 12B - 55</br>"+"Teléfono: 312-3802620</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 5.340211, lng : -72.381319},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>YOPAL- CASANARE</b></br>"+"Dirección: Carrera 33 No. 26A - 12</br>"+"Teléfono: (8) 2461794 313-2087017313-4944266</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.173607, lng : -76.265292},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CORINTO- CAUCA</b></br>"+"Dirección: Calle 10 No. 6-77</br>"+"Teléfono: 8271266 320-6414781 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 2.476881, lng : -76.559922},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>POPAYÁN- CAUCA</b></br>"+"Dirección: Carrera 6 No. 70 BN00</br>"+"Teléfono: 8249297 / 6770310-3929068 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.230338, lng : -76.418581},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>PUERTO TEJADA- CAUCA</b></br>"+"Dirección: Calle 17 No. 18-67</br>"+"Teléfono: 8282116 318-3612080</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 2.999538, lng : -76.488994},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SANTANDER DE QUILICHAO - CAUCA</b></br>"+"Dirección: Carrera 10  13AS-140</br>"+"Teléfono: 8293215</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 10.475017, lng : -73.282005},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>VALLEDUPAR- CESAR</b></br>"+"Dirección: Calle 7 No. 42 – 83</br>"+"Teléfono: (5) 5845940 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 10.454077, lng : -73.252276},contenido: '<a href="propiedades/01"><img width="200" height="109" src="images/imagenmapacasa.jpg"/></a><div><a href="propiedades/01">Valledupar</a></div><div"><a href="propiedades/01">Finca</a></div><div><a href="propiedades/01">$650,000</a></div><div><a href="propiedades/01">200 m2</a></div><a class="button" href="street.html">Vista 360°</a>'},
+
+{position:{lat : 5.699236, lng : -76.656415},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>QUIBDÓ- CHOCO</b></br>"+"Dirección: Carrera 6 No. 37 - 14</br>"+"Teléfono: (4) 6714849 314-7689174</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 5.266710, lng : -76.552205},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>TADÓ- CHOCO</b></br>"+"Dirección: Carrera 9 No. 4-60</br>"+"Teléfono: 6795005 320-7452369</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 8.725861, lng : -75.886540},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>MONTERÍA- CÓRDOBA</b></br>"+"Dirección: Carrera 14 No. 1 Sur</br>"+"Teléfono: (4) 7832656 -7922914</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.917046, lng : -74.025111},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CAJICÁ - CUNDINAMARCA</b></br>"+"Dirección: Calle 2A No. 4-07</br>"+"Teléfono: 8795356</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.860491, lng : -74.058792},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CHÍA- CUNDINAMARCA</b></br>"+"Dirección: Carrera 9 No. 11 - 00 </br>"+"Teléfono: 8632367 - 8844444 310-4804430</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.861539, lng : -74.060629},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CHÍA- CUNDINAMARCA</b></br>"+"Dirección: Carrera 11 No. 11 - 29</br>"+"Teléfono: 8632367 - 8844444310-4804430</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.296361, lng : -74.807054},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>GIRARDOT- CUNDINAMARCA</b></br>"+"Dirección: Carrera 11 con 17 Esquina</br>"+"Teléfono: (1) 8308919 300-2134891</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.581585, lng : -74.219048},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SOACHA - CUNDINAMARCA</b></br>"+"Dirección: Calle 13 No. 7-30</br>"+"Teléfono: 7763375 / 82/ 83 5770580  </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 2.922283, lng : -75.268149},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>NEIVA- HUILA</b></br>"+"Dirección: Calle 2C No. 28-14 </br>"+"Teléfono: (8) 8600469 /71 - 8714472 300-5705564    </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 2.927054, lng : -75.289510},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>NEIVA- HUILA</b></br>"+"Dirección: Carrera 5 No. 9-74</br>"+"Teléfono: (8) 8600469 /71 - 8714472 300-5705564 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 11.526404, lng : -72.905380},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>RIOHACHA- LA GUAJIRA</b></br>"+"Dirección: Calle 38 entre Carreras 7 y 8</br>"+"Teléfono: (5) 7287487- 7288629</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 11.916736, lng : -71.999995},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>URIBIA- LA GUAJIRA</b></br>"+"Dirección: Calle 14 No. 10A-43</br>"+"Teléfono: 301-2161547</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 11.222967, lng : -74.201027},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SANTA MARTA - MAGDALENA</b></br>"+"Dirección: Carrera 16 No. 31A – 34</br>"+"Teléfono: 315-7279243 300-8023392</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 1.217207, lng : -77.283934},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>PASTO- NARIÑO</b></br>"+"Dirección: Calle 14 No.30- 25</br>"+"Teléfono: (2) 7292204 - 7296356</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.878090, lng : -72.508821},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CÚCUTA- NORTE DE SANTANDER</b></br>"+"Dirección: Calle 18 No. 11 - 61</br>"+"Teléfono: (7) 5761790</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 1.146664, lng : -76.648607},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>MOCOA- PUTUMAYO</b></br>"+"Dirección: Carrera 9 No. 7 - 16</br>"+"Teléfono: (8) 4295390 310-3433508</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 0.499420, lng : -76.503108},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>PUERTO ASÍS- PUTUMAYO</b></br>"+"Dirección: Carrera 19 con Calle 14 Esquina</br>"+"Teléfono: (8) 4227525 321-4364814</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.805605, lng : -75.739440},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>PEREIRA- RISARALDA</b></br>"+"Dirección: Carrera 24 No. 70B-10</br>"+"Teléfono: 3275753 318-3900795</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.843146, lng : -75.658362},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>DOSQUEBRADAS - RISARALDA</b></br>"+"Dirección: Carrera 21 No. 66-21 Plan 3 Zona 6</br>"+"Teléfono: 3289101</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 12.557579, lng : -81.718025},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SAN ANDRÉS- SAN ANDRÉS Y PROVIDENCIA</b></br>"+"Dirección: Avenida Las Américas  Swand Ground</br>"+"Teléfono: (5) 5130801 Extensión 180 315-3034521</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.139048, lng : -73.128124},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BUCARAMANGA- SANTANDER</b></br>"+"Dirección: Calle 7 No.19-19</br>"+"Teléfono: (7) 6401542 - 6406178  </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 9.736080, lng : -75.524911},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SAN ONOFRE- SUCRE </b></br>"+"Dirección: Calle 19 No. 21 -104</br>"+"Teléfono: (5) 2982349 310-3638161</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.590798, lng : -75.383224},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>ATACO- TOLIMA</b></br>"+"Dirección: Calle 8 No. 4-07</br>"+"Teléfono: 2240042</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.444778, lng : -75.244014},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>IBAGUÉ- TOLIMA</b></br>"+"Dirección: Calle 9 No. 2-59</br>"+"Teléfono: 2710116 - 6611854 /55 310-2910120 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.934376, lng : -75.218614},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>ORTEGA- TOLIMA</b></br>"+"Dirección: Calle 6 No. 5-30</br>"+"Teléfono: 2256032</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.530736, lng : -75.645509},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>RIOBLANCO- TOLIMA</b></br>"+"Dirección: Carrera 5 No. 4-25</br>"+"Teléfono: 2256032 / 82</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.870741, lng : -76.992536},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BUENAVENTURA - VALLE DEL CAUCA </b></br>"+"Dirección: Calle 4A Sur Carrera 73B Esquina</br>"+"Teléfono: (2) 2446441 310-8312074 316-7401537</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.911655, lng : -76.308993},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BUGA - VALLE DEL CAUCA </b></br>"+"Dirección: Calle 30 No. 13A - 01</br>"+"Teléfono: (2) 2386780 316-3299315</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.425825, lng : -76.484692},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CALI- VALLE DEL CAUCA </b></br>"+"Dirección: Calle 73 No. 26 R 00</br>"+"Teléfono: 317-5159728</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.416390, lng : -76.555525},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CALI- VALLE DEL CAUCA </b></br>"+"Dirección: Carrera 52 No. 2 - 00</br>"+"Teléfono: (2) 5521827 310-8200632</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.760198, lng : -75.934254},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CARTAGO- VALLE DEL CAUCA </b></br>"+"Dirección: Carrera 1 con Calle 37</br>"+"Teléfono: (2) 2101414 300-7739634</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 3.548207, lng : -76.313745},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>PALMIRA - VALLE DEL CAUCA </b></br>"+"Dirección: Calle 57 No. 44-22</br>"+"Teléfono: 312-8279903 312-2138595 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 4.092369, lng : -76.207351},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>TULUÁ- VALLE DEL CAUCA </b></br>"+"Dirección: Carrera 10 No. 25-50</br>"+"Teléfono: (2) 2318440 </br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : -4.214194, lng : -69.941775},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>LETICIA- AMAZONAS</b></br>"+"Dirección: Calle 9 No. 9 - 103</br>"+"Teléfono: Coordinadora: 3144568759</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 5.709725, lng : -75.311928},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SONSÓN- ANTIOQUIA </b></br>"+"Dirección: Carrera 8 No. 6-11</br>"+"Teléfono: Coordinadora: 8692597 - 3116000632</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.031046, lng : -71.428835},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>ARAUQUITA- ARAUCA</b></br>"+"Dirección: Calle 4 No. 7-36</br>"+"Teléfono: Coordinador: 3148727045</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 10.804916, lng : -74.915449},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BARANOA- ATLÁNTICO</b></br>"+"Dirección: Carrera 19 No. 11-3-37</br>"+"Teléfono: Coordinador: 3008379909</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 10.745583, lng : -74.978712},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>UISACURÍ- ATLÁNTICO</b></br>"+"Dirección: Calle 16 N. 18-39</br>"+"Teléfono: Coordinadora: 3126662114</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 9.254619, lng : -74.769596},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>MAGANGUÉ- BOLÍVAR</b></br>"+"Dirección: Avenida Diego Carvajal Calle 16 No. 30-32</br>"+"Teléfono: Coordinadora: 3008153475</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 9.823997, lng : -75.122687},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SAN JACINTO- BOLÍVAR</b></br>"+"Dirección: Calle 14 Carrera 40 Esquina</br>"+"Teléfono: Coordinadora: 3205653411</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 5.718453, lng : -72.923356},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SOGAMOSO- BOYACÁ</b></br>"+"Dirección: Calle 16A No. 9-09</br>"+"Teléfono: Coordinadora: 3105744919 -7706993</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 2.113645, lng : -74.768585},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SAN VICENTE DEL CAGUÁN- CAQUETÁ</b></br>"+"Dirección: Calle 4 No. 4-65</br>"+"Teléfono: Coordinadora: 3118489738</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.100700, lng : -72.249741},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SÁCAMA- CASANARE</b></br>"+"Dirección: Calle 3 No. 8 - 35</br>"+"Teléfono: Coordinador: 3125068170</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 5.881213, lng : -71.894520},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>PAZ DE ARIPORO- CASANARE</b></br>"+"Dirección: Carrera 10 Con Calle 9 Esquina </br>"+"Teléfono: Coordinadora: 3115443029</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 8.310403, lng : -73.625730},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>AGUACHICA- CESAR</b></br>"+"Dirección: Carrera 8 No. 4-18</br>"+"Teléfono: Coordinadora: 3172553242</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 1.958039, lng : -72.654022},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CALAMAR- GUAVIARE </b></br>"+"Dirección: Carrera 8 No. 8-02</br>"+"Teléfono: Coordinadora: 3177211940</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.897007, lng : -72.500168},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>CÚCUTA- NORTE DE SANTANDER</b></br>"+"Dirección: Avenida 0 entre Calles 1 y 2</br>"+"Teléfono: Coordinador: 3165100681</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 8.233491, lng : -73.349876},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>OCAÑA- NORTE DE SANTANDER</b></br>"+"Dirección: Calle 7 No. 29 - 159</br>"+"Teléfono: Coordinador:3183622182</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 8.634888, lng : -72.731251},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>TIBÚ- NORTE DE SANTANDER</b></br>"+"Dirección: Carrera 2 No. 2 - 28 </br>"+"Teléfono: Coordinador: 3112902058</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.831557, lng : -72.470495},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>VILLA DEL ROSARIO- NORTE DE SANTANDER</b></br>"+"Dirección: Carrera 6 No. 6-635</br>"+"Teléfono: Coordinadora: 3187171785</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.063963, lng : -73.839307},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>BARRANCABERMEJA- SANTANDER</b></br>"+"Dirección: Calle 54 Carrera 36E Esquina </br>"+"Teléfono: Coordinadora: 3114815598</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.347495, lng : -73.904074},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>PUERTO WILCHES- SANTANDER</b></br>"+"Dirección:  Calle 6 No. 1-64</br>"+"Teléfono: Coordinadora: 3202345575</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 7.396844, lng : -73.493130},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SABANA DE TORRES- SANTANDER</b></br>"+"Dirección: Carrera 11 No. 11-08</br>"+"Teléfono: Coordinador: 6293362 - 3166218846</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 6.559173, lng : -73.140875},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SAN GIL- SANTANDER</b></br>"+"Dirección: Calle 22 No. 9-32</br>"+"Teléfono: Directora: 7236129 - 3165228752</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+
+{position:{lat : 9.248048, lng : -75.149692},contenido: "<div>"+"<b>Categoría: Llantas</b></br>"+"<b>SAN LUIS DE SINCE- SUCRE </b></br>"+"Dirección: Calle 14 Carrera 10 Detrás del Instituto Educativo San Juan Bautista de la Calle</br>"+"Teléfono: Coordinadora: 3205938555</br>"+"<input type='button' value='Vista 360°' onclick=window.location='street.html'></input>"+"</div>"},
+										
+				];
+				for (var i = 0, j = marcadores.length; i < j; i++) {
+					var contenido = marcadores[i].contenido;
+					var marker = new google.maps.Marker({
+						position: new google.maps.LatLng(marcadores[i].position.lat, marcadores[i].position.lng),
+						map: map,
+						icon: "images/llantas.png"
+					});
+					(function(marker, contenido){						
+						google.maps.event.addListener(marker, 'click', function() {
+							infowindow.setContent(contenido);
+							infowindow.open(map, marker);
+						});
+					})(marker,contenido);
+				}
+	  	// We get the map's default panorama and set up some defaults.
+  // Note that we don't yet set it visible.
+  
+  panorama = map.getStreetView();
+  panorama.setPosition(astorPlace);
+  panorama.setPov(/** @type {google.maps.StreetViewPov} */({
+    heading: 265,
+    pitch: 0
+  }));
+
+      map.setCenter(pos);
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+}
+
+
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    var content = 'Error: The Geolocation service failed.';
+  } else {
+    var content = 'Error: Your browser doesn\'t support geolocation.';
+  }
+
+}
+
+
+function toggleStreetView() {
+  var toggle = panorama.getVisible();
+  if (toggle == false) {
+    panorama.setVisible(true);
+  } else {
+    panorama.setVisible(false);
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>  
+
+</body>
+</html>

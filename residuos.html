@@ -1,0 +1,201 @@
+<!DOCTYPE html> 
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>jQuery Mobile: Theme Download</title>
+		<link rel="stylesheet" href="themes/posconsumo.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.0.min.css" />
+        
+        
+        <link rel='stylesheet' href='slides/css/vendor/normalize.css'>
+	    <link rel='stylesheet' href='slides/css/vendor/fontello.css'>
+	    <link rel='stylesheet' href='slides/css/style.css'>
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        
+		<script src="themes/jquery-1.10.2.min.js"></script>
+		<script src="themes/jquery.mobile-1.4.0.min.js"></script>
+        
+         <script language="JavaScript" type="text/javascript" src="js/xpath.js"></script>
+		<script language="JavaScript" type="text/javascript" src="js/SpryData.js"></script>
+        <script language="javascript" type="text/javascript" src="js/funciones.js"></script>
+         <script language="JavaScript" type="text/javascript">
+
+
+<!--
+
+		var idEdu = localStorage.getItem("project_idEdu")
+       
+	   if(idEdu == null) {
+          var idEdu = ""
+		   }
+		   
+		  
+		  var ds1 = new Spry.Data.XMLDataSet("http://servicedatosabiertoscolombia.cloudapp.net/v1/Ministerio_de_Ambiente/puntosposconsumo?$format=xml", "feed/entry/content/m:properties"+idEdu+"");
+		  
+		  var ds2 = new Spry.Data.XMLDataSet("http://servicedatosabiertoscolombia.cloudapp.net/v1/Ministerio_de_Ambiente/puntosposconsumo?$format=xml", "feed/entry/content/m:properties"+idEdu+"[d:categoria = 'MEDICAMENTOS']", {sortOrderOnLoad: "ascending", distinctOnLoad: true});
+		  
+		 
+		  
+		  
+	   
+	   
+       
+        </script>
+        
+         <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,100,200,700,500' rel='stylesheet' type='text/css'>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    setTimeout(function() {
+        $(".cargaocultar").fadeOut(1100);
+    },1500);
+});
+
+</script>
+         
+	</head>
+    
+<body onload="onLoad();"> 
+
+<div data-role="page" id="page">
+	<div data-role="header" data-position="fixed">
+    <a href="#nav-panel" class="ui-nodisc-icon ui-btn ui-icon-bars ui-btn-icon-notext" style=" background:#3c9900; border:none;">Menu</a>
+		<h4>POSCONSUMO </h4>
+	</div>
+    
+	<div style="padding-left:10px; padding-right:10px;" data-role="content">
+
+    
+    <h2 class="fuente1">Puntos de Recolección</h2>
+    
+    
+ <div role="main" class="ui-content">
+        <div spry:region="ds1">
+            
+             <div spry:state="loading" align="center">             	
+                	<img src="themes/images/loading.gif">
+                   	<h3 class="fuente1">Cargando Ciudades...</h3>
+             </div>
+                    
+             <div spry:state="error" align="center">
+				<div class="cargaocultar" style="height:1000px"> </div>
+                <h3 class="fuente1">No se obtuvieron datos, comprueba tu conexión a internet.</h3>
+             </div>
+             
+		<div spry:state="ready">
+            			<h3 class="fuente1">Seleccionar Ciudad</h3>
+            
+        <h4 class="fuente1">Ciudad Seleccionada</h4>
+    <a href="vivienda.html" style="text-transform:uppercase" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-icon-search ui-btn-e" data-ajax="false">{d:municipio}</a>
+
+
+</div>
+
+
+
+		</div>
+		
+        
+        
+        
+        </div>
+        
+        
+      <div role="main" class="ui-content">
+        <div spry:region="ds2">
+            
+             <div spry:state="loading" align="center">             	
+
+    
+             </div>
+                    
+             <div spry:state="error" align="center">
+				<div class="cargaocultar" style="height:1000px"> </div>
+
+             </div>
+             
+		<div spry:state="ready">
+            			<h3 class="fuente1">Seleccionar Ciudad</h3>
+            
+        <h4 class="fuente1">Ciudad Seleccionada</h4>
+    <div spry:repeat="ds2"><a href="vivienda.html" style="text-transform:uppercase" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-icon-search ui-btn-e" data-ajax="false">{d:vocero}</a></div>
+
+
+</div>
+
+
+
+		</div>
+		
+        
+        
+        
+        </div>  
+        
+    </div>
+               		
+    
+    
+	
+			
+	</div>
+	
+    
+    <div data-role="panel" data-display="reval" data-theme="b" id="nav-panel">
+    
+    <div id="sidemenu">
+	        		<div id="author-profile">
+	        			<div class="author-profile-photo">
+	        				<img src="assets/authorProfile.jpg" alt="">
+	        			</div>
+	        			<div class="author-profile-content">
+	        				<p class="title">Posconsumo</p>
+	        				<p class="subtitle" style="color:#9fc103">Gestión de Residuos</p>
+	        			</div>
+	        		</div>
+	 </div></br>
+     
+        <ul data-role="listview">        
+          <li><a href="index.html" data-ajax="false"><n class="fuente1">Inicio</n></a></li>
+          <li><a href="aprende.html" data-ajax="false"><n class="fuente1">Aprende</n></a></li>
+          <li><a href="informate.html" data-ajax="false"><n class="fuente1">Infórmate</n></a></li>
+          <li><a href="ubicate.html" data-ajax="false"><n class="fuente1">Ubícate</n></a></li>
+          <li><a href="contacto.html" data-ajax="false"><n class="fuente1">Contacto</n></a></li>
+          <li><a href="sobre.html" data-ajax="false"><n class="fuente1">Acerca de</n></a></li>        
+          <li><a href="cerrar.html" data-transition="pop" data-ajax="false" onclick="exitFromApp"><n class="fuente1">Salir</n></a></li>      
+        </ul></br>
+        
+        
+        <p class"social" align="center">
+        
+    <script>
+    function openLinkInBrowser(url){
+    if (navigator!=undefined && navigator.app!=undefined && navigator.app.loadUrl !=undefined) {
+        navigator.app.loadUrl( url,  { openExternal: true });  
+    } else {
+        window.open(url, "_system");
+    }
+    
+}
+    </script>
+           <a class"afuera" onclick="openLinkInBrowser('https://twitter.com/intent/tweet?text=@MinAmbienteCo')"><img src="themes/images/icontwet.png" width="50" height="50" /></a>
+           <a onclick="openLinkInBrowser('https://www.facebook.com/sharer/sharer.php?u=http://www.minambiente.gov.co/')"><img src="themes/images/iconface.png" width="50" height="50" /></a>
+           <a onclick="openLinkInBrowser('http://www.youtube.com/user/minambientegov')"><img src="themes/images/iconyout.png" width="50" height="50" /></a>
+        </p>
+    </div><!-- /panel -->
+</div>
+
+
+<script>!window.jQuery && document.write('<script src="slides/js/vendor/jquery.js"><\/script>')</script>
+        
+<script src='slides/js/plugins/hammer.js'></script>
+<script src='slides/js/plugins/flexslider.js'></script>
+<script src='slides/js/script.js'></script>
+
+
+
+</body>
+</html>
